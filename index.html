@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MockDrill - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="home-body">
+    <!-- Header Section -->
+    <header class="home-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="logo" id="logo-btn" title="Secret Admin Login">MockDrill</div>
+            <span id="admin-badge" class="admin-badge" style="display: none;">Admin</span>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Exams</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">✨ New & Improved Platform</div>
+            <h1>Master Your Exams with <span class="highlight">MockDrill</span></h1>
+            <p>Experience real exam scenarios with our advanced mock tests, detailed analytics, and comprehensive question banks.</p>
+            <div class="hero-buttons">
+                <button class="nav-btn primary" onclick="document.getElementById('section-title').scrollIntoView({behavior: 'smooth'})">Get Started Now</button>
+            </div>
+        </div>
+        <!-- Decorative elements -->
+        <div class="hero-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <h2 id="section-title">🎯 Select Your Exam Category</h2>
+        
+        <!-- Admin Panel: Add New Exam -->
+        <button id="back-btn" class="back-btn" style="display: none;">🔙 Back to Categories</button>
+        <button id="add-card-btn" class="admin-btn">➕ Add New Exam (Admin Only)</button>
+
+        <div class="category-grid" id="category-grid">
+            <!-- Cards will be injected here by JS -->
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <h2>💬 What Our Students Say</h2>
+        <div class="reviews-grid" id="reviews-grid">
+            <!-- Reviews JS ke through yahan aayenge -->
+        </div>
+        <div class="review-form-container">
+            <h3 style="margin-top: 0; color: #1e293b; margin-bottom: 20px;">Leave a Review</h3>
+            <form id="review-form" class="review-form">
+                <input type="text" id="reviewer-name" placeholder="Your Name" required autocomplete="off">
+                <select id="review-rating" required>
+                    <option value="5">⭐⭐⭐⭐⭐ (Excellent)</option>
+                    <option value="4">⭐⭐⭐⭐ (Good)</option>
+                    <option value="3">⭐⭐⭐ (Average)</option>
+                </select>
+                <textarea id="review-text" placeholder="Share your experience with MockDrill..." required></textarea>
+                <button type="submit" class="nav-btn primary">Submit Review</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="home-footer">
+        <p>&copy; 2026 MockDrill. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+
+    <!-- Add Question Modal (Bilingual Form) -->
+    <div id="question-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Questions</h2>
+                <span class="close-modal" id="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- JS Dwara 2-pane Forms yahan banenge -->
+            </div>
+            <div class="modal-footer">
+                <button id="download-template-btn" class="nav-btn" style="background-color: #10b981; color: white; margin-right: 10px; font-size: 0.95rem; padding: 10px 15px;">📄 Get JSON Template</button>
+                <button id="quick-paste-btn" class="nav-btn" style="background-color: #f59e0b; color: white; margin-right: 10px;">📋 Quick Paste</button>
+                <button id="save-questions-btn" class="nav-btn primary">Save Questions</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Custom Admin Login Modal -->
+    <div id="admin-login-modal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 400px; height: auto; border-radius: 20px;">
+            <div class="modal-header">
+                <h2 style="font-size: 1.4rem;">🔐 Admin Login</h2>
+                <span class="close-modal" id="close-login-modal">&times;</span>
+            </div>
+            <div class="modal-body" style="text-align: center; padding: 35px 30px;">
+                <p style="color: #64748b; margin-top: 0; margin-bottom: 25px; font-size: 1.05rem;">
+                    Please enter the secret password to access admin controls.
+                </p>
+                <input type="password" id="admin-pwd-input" class="login-input" placeholder="Enter Password" autocomplete="off">
+                <button id="admin-login-submit" class="nav-btn primary" style="width: 100%;">Unlock Admin Mode</button>
+                <p id="admin-login-error" style="color: #ef4444; margin-top: 15px; display: none; font-weight: bold; animation: fadeInUp 0.3s ease;">❌ Galat Password!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Paste Modal -->
+    <div id="quick-paste-modal" class="modal" style="display: none; z-index: 1010;">
+        <div class="modal-content" style="max-width: 600px; height: auto;">
+            <div class="modal-header">
+                <h2 style="font-size: 1.4rem;">📋 Quick Paste JSON</h2>
+                <span class="close-modal" id="close-paste-modal">&times;</span>
+            </div>
+            <div class="modal-body" style="padding: 20px 30px;">
+                <p style="color: #64748b; margin-top: 0; margin-bottom: 15px; font-size: 0.95rem;">Paste your JSON questions array here:</p>
+                <textarea id="quick-paste-area" style="width: 100%; height: 250px; padding: 15px; border-radius: 10px; border: 1px solid #cbd5e1; font-family: monospace; font-size: 0.9rem; resize: vertical;" placeholder='[\n  {\n    "eng": { ... }\n  }\n]'></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="process-paste-btn" class="nav-btn primary">Process Questions</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>

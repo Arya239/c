@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MockDrill</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="test-header">
+        <div class="test-title">MockDrill</div>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <select id="language-toggle" style="padding: 8px 15px; border-radius: 20px; font-weight: 600; cursor: pointer; border: 1px solid #e2e8f0; color: #1e293b; background: #f8fafc; outline: none; transition: all 0.3s;">
+                <option value="eng">English</option>
+                <option value="hin">हिंदी</option>
+            </select>
+            <div class="timer-badge">
+                <span>⏱️</span>
+                <span id="time-left">00:00:00</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="test-container">
+        <!-- Left Side: Question Area -->
+        <main class="question-area">
+            <div class="question-header">
+                <h2 id="q-number">Question 1</h2>
+                <span class="marks-badge">Marks: +1 / -0.25</span>
+            </div>
+            <div class="question-content">
+                <p id="q-text">Loading question...</p>
+            </div>
+            <div class="options-container" id="options-container">
+                <!-- Options JS se aayenge -->
+            </div>
+        </main>
+
+        <!-- Right Side: Question Palette -->
+        <aside class="question-palette">
+            <h3>Question Palette</h3>
+            <div class="palette-grid" id="palette-grid"></div>
+            <div class="palette-legend">
+                <div class="legend-item"><span class="legend-box answered"></span> Answered</div>
+                <div class="legend-item"><span class="legend-box not-answered"></span> Not Answered</div>
+                <div class="legend-item"><span class="legend-box current"></span> Current Question</div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer Section: Navigation Buttons -->
+    <footer class="test-footer">
+        <button id="btn-prev" class="nav-btn">◀ Previous</button>
+        <button id="btn-clear" class="nav-btn" style="background-color: #f59e0b; color: white; margin-left: 10px;">Clear Response</button>
+        <button id="btn-next" class="nav-btn primary">Save & Next ▶</button>
+        <button id="btn-submit" class="nav-btn danger" style="display: none;">Submit Test</button>
+    </footer>
+
+    <!-- Certificate Modal -->
+    <div id="certificate-modal" class="modal" style="display: none;">
+        <div class="modal-content cert-modal-content">
+            <div class="modal-header">
+                <h2>Test Result</h2>
+                <span class="close-modal" id="close-cert-modal">&times;</span>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <div class="cert-controls">
+                    <label style="font-weight: bold; font-size: 1.1rem;">Enter Your Name: </label>
+                    <input type="text" id="student-name-input" placeholder="Type your name here..." autocomplete="off">
+                </div>
+                
+                <div id="certificate-box" class="certificate-box">
+                    <div class="cert-border">
+                        <div class="cert-watermark">MOCKDRILL</div>
+                        <div class="cert-id">Cert ID: <span id="cert-id-display">MD-XXXX</span></div>
+                        <div class="cert-seal-container">
+                            <div class="cert-ribbon left-ribbon"></div>
+                            <div class="cert-ribbon right-ribbon"></div>
+                            <div class="cert-seal">
+                                <span class="seal-icon">🏆</span>
+                                <span class="seal-main">CERTIFIED</span>
+                                <span class="seal-sub">EXCELLENCE</span>
+                            </div>
+                        </div>
+                        <div class="cert-header-ornament">★ <span style="font-size: 1.5em; vertical-align: middle;">★</span> ★</div>
+                        <h1>Certificate</h1>
+                        <h3 class="cert-subtitle">OF EXCELLENCE</h3>
+                        <p class="cert-presented-text">THIS IS PROUDLY PRESENTED TO</p>
+                        <h2 id="cert-name-display" class="cert-name">Candidate Name</h2>
+                        <p class="cert-reason">for outstanding performance and successfully completing the</p>
+                        <p class="cert-exam-title"><strong><span id="cert-exam-name">Mock Test</span></strong></p>
+                        <div class="cert-stats">
+                            <div class="stat-item"><span class="stat-label">Score</span><span class="stat-val" id="cert-score-display">0/0</span></div>
+                            <div class="stat-item"><span class="stat-label">Incorrect</span><span class="stat-val" id="cert-incorrect-display" style="color: #e74c3c;">0</span></div>
+                            <div class="stat-item"><span class="stat-label">Unattempted</span><span class="stat-val" id="cert-unattempted-display" style="color: #7f8c8d;">0</span></div>
+                            <div class="stat-item"><span class="stat-label">Accuracy</span><span class="stat-val"><span id="cert-accuracy-display">0</span>%</span></div>
+                            <div class="stat-item"><span class="stat-label">Percentage</span><span class="stat-val"><span id="cert-percent-display">0</span>%</span></div>
+                            <div class="stat-item"><span class="stat-label">Time Taken</span><span class="stat-val" id="cert-time-taken-display">0 min 0 sec</span></div>
+                        </div>
+
+                        <!-- Pie Chart Analytics -->
+                        <div class="cert-analytics">
+                            <div id="result-pie-chart" class="pie-chart"></div>
+                            <div class="pie-legend">
+                                <div><span class="legend-item-box color-correct"></span> Correct: <span id="pie-correct-val">0</span></div>
+                                <div><span class="legend-item-box color-incorrect"></span> Incorrect: <span id="pie-incorrect-val">0</span></div>
+                                <div><span class="legend-item-box color-unattempted"></span> Unattempted: <span id="pie-unattempted-val">0</span></div>
+                            </div>
+                        </div>
+
+                        <p id="cert-suggestion-display" class="cert-suggestion">Suggestion will appear here.</p>
+                        
+                        <div class="cert-footer-info">
+                            <div class="signature-box">
+                                <div id="cert-date-display" class="signature-val">DD/MM/YYYY</div>
+                                <div class="cert-sign-line">Date</div>
+                            </div>
+                            <div class="signature-box">
+                                <div class="signature-val director-sign">MockDrill</div>
+                                <div class="cert-sign-line">Director Signature</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cert-footer-actions">
+                    <button class="nav-btn primary" id="btn-download-cert">📥 Download Image</button>
+                    <button class="nav-btn share" id="btn-share-cert">📲 Share Result</button>
+                    <button class="nav-btn" onclick="window.print()">🖨️ Print / PDF</button>
+                    <button class="nav-btn" onclick="window.location.href='index.html'">🏠 Back to Home</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
